@@ -5,6 +5,10 @@ pipeline {
        go 'go-1.21.3'
     }
 
+    environment {
+        //SONAR_TOKEN = credentials('SONAR_TOKEN') // Reference Jenkins credential ID
+    }
+
     stages {
         stage('Unit Test') {
             steps {
@@ -25,6 +29,14 @@ pipeline {
             }
         }
 
+        // stage('Run SonarQube Analysis') {
+        //     steps {
+        //         script {
+        //                 sh '/usr/local/sonar/bin/sonar-scanner -X -Dsonar.organization=wm-demo -Dsonar.projectKey=wm-demo_hello-webapp-golang -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io'
+        //         }
+        //     }
+        // }
+
         stage('Build') {
             steps {
                 script {
@@ -39,7 +51,6 @@ pipeline {
         stage('Build Docker Image') {
            steps {
                script {
-                    // build docker image
                    //sh 'docker build -t dab8106/hellogo .'
                }
            }
@@ -48,8 +59,12 @@ pipeline {
         stage('Push Docker Image') {
            steps {
                script {
-                    //Push docker image in specific server
-                   }
+                //    withCredentials([usernamePassword(credentialsId: 'DOCKER_REGISTRY_CREDENTIALS_ID', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                //        sh """
+                //            echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
+                //            docker push dab8106/hellogo
+                //        """
+                //    }
                }
            }
        }
