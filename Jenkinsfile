@@ -39,7 +39,8 @@ pipeline {
         stage('Build Docker Image') {
            steps {
                script {
-                   sh 'docker build -t dab8106/hellogo .'
+                    // build docker image
+                   //sh 'docker build -t dab8106/hellogo .'
                }
            }
        }
@@ -47,11 +48,7 @@ pipeline {
         stage('Push Docker Image') {
            steps {
                script {
-                   withCredentials([usernamePassword(credentialsId: 'DOCKER_REGISTRY_CREDENTIALS_ID', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                       sh """
-                           echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
-                           docker push dab8106/hellogo
-                       """
+                    //Push docker image in specific server
                    }
                }
            }
