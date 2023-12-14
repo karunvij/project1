@@ -5,9 +5,9 @@ pipeline {
        go 'go-1.21.3'
     }
 
-    environment {
-        //SONAR_TOKEN = credentials('SONAR_TOKEN') // Reference Jenkins credential ID
-    }
+    // environment {
+    //     SONAR_TOKEN = credentials('SONAR_TOKEN') // Reference Jenkins credential ID
+    // }
 
     stages {
         stage('Unit Test') {
@@ -48,26 +48,54 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-           steps {
-               script {
-                   //sh 'docker build -t dab8106/hellogo .'
-               }
-           }
-       }
+    //     stage('Build Docker Image') {
+    //        steps {
+    //            script {
+    //                sh 'docker build -t dab8106/hellogo .'
+    //            }
+    //        }
+    //    }
 
-        stage('Push Docker Image') {
-           steps {
-               script {
-                //    withCredentials([usernamePassword(credentialsId: 'DOCKER_REGISTRY_CREDENTIALS_ID', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                //        sh """
-                //            echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
-                //            docker push dab8106/hellogo
-                //        """
-                //    }
-               }
-           }
-       }
+    //     stage('Push Docker Image') {
+    //        steps {
+    //            script {
+    //                withCredentials([usernamePassword(credentialsId: 'DOCKER_REGISTRY_CREDENTIALS_ID', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+    //                    sh """
+    //                        echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
+    //                        docker push dab8106/hellogo
+    //                    """
+    //                }
+    //            }
+    //        }
+    //    }
+
+       // stage('Terraform Apply') {
+       //      environment {
+       //          AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
+       //          AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+       //      }
+       //      steps {
+       //          script {
+       //              sh '''
+       //                  export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+       //                  export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+       //                  cd ./terraform
+       //                  terraform init
+       //                  terraform apply -auto-approve
+       //              '''
+       //          }
+       //      }
+       //  }
+
+        // stage('Run Ansible Playbook') {
+        //     steps {
+        //         script {
+        //             sh '''
+        //                 ansible-playbook ansible/deploy-container.yaml
+        //             '''
+        //         }
+        //     }
+        // }
     }
 
     post {
